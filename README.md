@@ -1,7 +1,25 @@
 # Markdown to HTML flashcards
 Edit your flashcards in markdown then use them like a native app on your iphone.
 
-# Requirements for phone editing
+## TODO
+1. Render pretty looking flashcards using the questions/answer array loaded in the file
+2. Create a menu to change category
+
+## Development
+From root directory run
+ 
+`python -m SimpleHTTPServer 8000`
+
+Open browser to localhost:8000
+
+## Deployment
+Push to the github repo and the github page should update in a few seconds
+
+## Adding new categories
+Create a new file, e.g., `no_spaces_allowed_in_name.md` in the categories/ folder
+MAKE SURE YOU ADD A NEWLINE AT END OF FILE OR THE LAST FLASHCARD WILL NOT RENDER (regex)
+
+## Requirements for phone editing
 - markdown editor like iAWriter (or probably dropbox?)
 - Working Copy for version control/changing flashcards from phone
 
