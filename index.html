@@ -4,8 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script type="text/javascript">
+    function readTextFile(file)
+    {
+        var rawFile = new XMLHttpRequest();
+        rawFile.open("GET", file, false);
+        // rawFile.setRequestHeader('Content-type', 'text/plain;charset=UTF-8');
+        // rawFile.setRequestHeader('Access-Control-Allow-Origin', '*')
+        rawFile.onreadystatechange = function ()
+        {
+            if(rawFile.readyState === 4)
+            {
+                if(rawFile.status === 200 || rawFile.status == 0)
+                {
+                    var allText = rawFile.responseText;
+                    alert(allText);
+                }
+            }
+        }
+        rawFile.send(null);
+    }
+    readTextFile('programming.md')
+    </script>
 </head>
+
 <body>
     <h1>hello world10</h1>
+    <div id="container">
+        <!-- <input type="button" value="programming.md"  onclick="FileHelper.readStringFromFileAtPath('./programming.md')" /> -->
+        <div id="main">
+        </div>
+    </div>
 </body>
 </html>

@@ -1,9 +1,24 @@
 # Markdown to HTML flashcards
 Edit your flashcards in markdown then use them like a native app on your iphone.
 
-## Project Goal
-1. From an icloud enabled computer, assign a cronjob to watch the markdown file "FLASHCARDS.md" from the icloud/iAWriter/Documents directory 
-2. Convert the markdown to html
-3. SFTP the html file to the webserver
-2. Navigate to the 
-2. Use the safari "Add to homescreen" button on the webpage
+# Requirements for phone editing
+- markdown editor like iAWriter (or probably dropbox?)
+- Working Copy for version control/changing flashcards from phone
+
+## MVP
+1. Can add/edit/remove flashcards from phone and computer by modifying markdown files
+2. Flashcards viewable from any browser
+
+## Future additions
+1. Spaced repetition, i.e., 
+2. "Got it right/Did not" so that it will automatically repeat cards you get wrong
+
+-- 
+
+update system
+pushes to master branch are picked up by remote server via webhook
+
+when remote server observes this, it pulls the repo and runs a script which takes all the markdown and turns it into html
+
+when it is finished, it then pushes the generated file `index.html` to the public branch
+
