@@ -12,6 +12,9 @@
     </div>
     <div id="flashcards"></div>
     <script type="text/javascript">
+        var root = window.location.hostname === 'localhost' ?
+            '.' :
+            'https://raw.githubusercontent.com/reidjs/flashcards/master'
         function readTextFile(file, callback) {
             const rawFile = new XMLHttpRequest();
             rawFile.open("GET", file, false);
@@ -74,7 +77,7 @@
             }
         }
         const loadFileAndRender = () => {
-            readTextFile(`./categories/${getLocationHash()}`, renderFlashcards)
+            readTextFile(`${path}/categories/${getLocationHash()}`, renderFlashcards)
         }
         document.addEventListener('DOMContentLoaded', () => {
             console.log(categories)
