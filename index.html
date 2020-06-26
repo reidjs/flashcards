@@ -77,7 +77,7 @@
             }
         }
         const loadFileAndRender = () => {
-            readTextFile(`${path}/categories/${getLocationHash()}`, renderFlashcards)
+            readTextFile(`./categories/${getLocationHash()}`, renderFlashcards)
         }
         document.addEventListener('DOMContentLoaded', () => {
             console.log(categories)
@@ -85,7 +85,7 @@
                 loadXMLDoc('./categories')
             } else {
                 fetch('api.github.com/repos/reidjs/flashcards/contents/categories').then(res => {
-                    console.log(res)
+                    console.log(res.json())
                 })
             }
             window.onhashchange = function(e) { 
