@@ -78,17 +78,9 @@
         }
         const fetchLinks = async () => {
             let res = await fetch('https://api.github.com/repos/reidjs/flashcards/contents/categories')
-            let res2 = await res.json()
-            return res2
-            // fetch('https://api.github.com/repos/reidjs/flashcards/contents/categories').then(function(res) {
-            //     return res.json()
-            // }).then(function(data) {
-            //     console.log(data)
-            // }).catch(err => {
-            //     console.log(err)
-            // })
+            await res.json()
         }
-        const loadFlashCards = async () => {
+        const loadFlashCardDownloadLinks = async () => {
             let links = [
                 {
                     "name": "capitals.md",
@@ -108,9 +100,19 @@
         // const loadFileAndRender = () => {
         //     readTextFile(`./categories/${getLocationHash()}`, renderFlashcards)
         // }
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             // console.log(categories)
-            const links = loadFlashCards()
+            const links = await loadFlashCardDownloadLinks()
+            const categories = document.getElementById('categories')
+            for(let i = 0; i < links.length; i++) {
+                const link = links[i]
+                const li = document.createElement('li')
+                const a = document.createElement('a')
+                a.innerHTML = link.name
+                a.href = `#${link.name}`
+                li.appendChild(a)
+                categories.appendChild(li)
+            }
             console.log('links: ', links)
             window.onhashchange = function(e) { 
                 // loadFileAndRender()
