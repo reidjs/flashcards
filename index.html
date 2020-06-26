@@ -84,6 +84,9 @@
             }
             loadFileAndRender()
         })
+        fetch('https://github.com/login/oauth/authorize').then(res => {
+            console.log(res)
+        })
     </script>
 </body>
 </html>
