@@ -84,8 +84,10 @@
             if (isDev) {
                 loadXMLDoc('./categories')
             } else {
-                fetch('api.github.com/repos/reidjs/flashcards/contents/categories').then(res => {
-                    console.log(res.json())
+                fetch('api.github.com/repos/reidjs/flashcards/contents/categories').then(function(res) {
+                    return res.json()
+                }).then(function(data) {
+                    console.log(data)
                 })
             }
             window.onhashchange = function(e) { 
