@@ -14,49 +14,49 @@
     <script type="text/javascript">
         var isDev = window.location.hostname === 'localhost' ? true : false
         var categoryNames = []
-        function readTextFile(file, callback) {
-            const rawFile = new XMLHttpRequest();
-            rawFile.open("GET", file, false);
-            rawFile.onreadystatechange = function () {
-                if(rawFile.readyState === 4) {
-                    if(rawFile.status === 200 || rawFile.status == 0) {
-                        const allText = rawFile.responseText;
-                        callback(allText)
-                    }
-                }
-            }
-            rawFile.send(null);
-        }
-        function loadXMLDoc(url) {
-            let xmlhttp
-            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari, SeaMonkey
-                xmlhttp=new XMLHttpRequest();
-            }
-            else {// code for IE6, IE5
-                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange=function()
-            {
-                if (xmlhttp.readyState==4 && xmlhttp.status==200)
-                {
-                    const text = xmlhttp.responseText   
-                    const div = document.createElement('div')
-                    div.innerHTML = text
-                    const ul = div.getElementsByTagName('ul')
-                    console.log(ul[0])
-                    // categoryNames = 
-                    // const categories = document.getElementById('categories')
-                    // categories.appendChild(ul[0])
-                    const anchors = ul[0].getElementsByTagName('a')
-                    for(let i = 0; i < anchors.length; i++) {
-                        const anchor = anchors[i]
-                        anchor.setAttribute('href', `#${anchor.innerHTML}`)
-                    }
-                }
-            }
-            xmlhttp.open("GET", url, false);
-            xmlhttp.send();
-        }
+        // function readTextFile(file, callback) {
+        //     const rawFile = new XMLHttpRequest();
+        //     rawFile.open("GET", file, false);
+        //     rawFile.onreadystatechange = function () {
+        //         if(rawFile.readyState === 4) {
+        //             if(rawFile.status === 200 || rawFile.status == 0) {
+        //                 const allText = rawFile.responseText;
+        //                 callback(allText)
+        //             }
+        //         }
+        //     }
+        //     rawFile.send(null);
+        // }
+        // function loadXMLDoc(url) {
+        //     let xmlhttp
+        //     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari, SeaMonkey
+        //         xmlhttp=new XMLHttpRequest();
+        //     }
+        //     else {// code for IE6, IE5
+        //         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        //     }
+        //     xmlhttp.onreadystatechange=function()
+        //     {
+        //         if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        //         {
+        //             const text = xmlhttp.responseText   
+        //             const div = document.createElement('div')
+        //             div.innerHTML = text
+        //             const ul = div.getElementsByTagName('ul')
+        //             console.log(ul[0])
+        //             // categoryNames = 
+        //             // const categories = document.getElementById('categories')
+        //             // categories.appendChild(ul[0])
+        //             const anchors = ul[0].getElementsByTagName('a')
+        //             for(let i = 0; i < anchors.length; i++) {
+        //                 const anchor = anchors[i]
+        //                 anchor.setAttribute('href', `#${anchor.innerHTML}`)
+        //             }
+        //         }
+        //     }
+        //     xmlhttp.open("GET", url, false);
+        //     xmlhttp.send();
+        // }
 
         const getLocationHash = () => {
             const hash = window.location.hash
@@ -76,26 +76,46 @@
                 console.error('Questions and answers length does not match!')
             }
         }
-        const loadFileAndRender = () => {
-            readTextFile(`./categories/${getLocationHash()}`, renderFlashcards)
+        const fetchLinks = async () => {
+            let res = await fetch('https://api.github.com/repos/reidjs/flashcards/contents/categories')
+            let res2 = await res.json()
+            return res2
+            // fetch('https://api.github.com/repos/reidjs/flashcards/contents/categories').then(function(res) {
+            //     return res.json()
+            // }).then(function(data) {
+            //     console.log(data)
+            // }).catch(err => {
+            //     console.log(err)
+            // })
         }
+        const loadFlashCards = async () => {
+            let links = [
+                {
+                    "name": "capitals.md",
+                    "download_url": "https://raw.githubusercontent.com/reidjs/flashcards/master/categories/capitals.md",
+                },
+                {
+                    "name": "programming.md",
+                    "download_url": "https://raw.githubusercontent.com/reidjs/flashcards/master/categories/programming.md",
+                }
+            ]
+            if (!isDev) {
+                links = await fetchLinks()
+                console.log('using real links:', links)
+            }
+            return links
+        }
+        // const loadFileAndRender = () => {
+        //     readTextFile(`./categories/${getLocationHash()}`, renderFlashcards)
+        // }
         document.addEventListener('DOMContentLoaded', () => {
-            console.log(categories)
-            if (isDev) {
-                loadXMLDoc('./categories')
-            } else {
-                fetch('https://api.github.com/repos/reidjs/flashcards/contents/categories').then(function(res) {
-                    return res.json()
-                }).then(function(data) {
-                    console.log(data)
-                }).catch(err => {
-                    console.log(err)
-                })
-            }
+            // console.log(categories)
+            const links = loadFlashCards()
+            console.log('links: ', links)
             window.onhashchange = function(e) { 
-                loadFileAndRender()
+                // loadFileAndRender()
             }
-            loadFileAndRender()
+            // loadFileAndRender()
         })
     </script>
 </body>
