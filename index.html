@@ -84,8 +84,8 @@
             if (isDev) {
                 loadXMLDoc('./categories')
             } else {
-                fetch('api.github.com/repos/reidjs/flashcards/contents/categories').then(function(res) {
-                    return res.text()
+                fetch('https://api.github.com/repos/reidjs/flashcards/contents/categories').then(function(res) {
+                    return res.json()
                 }).then(function(data) {
                     console.log(data)
                 }).catch(err => {
