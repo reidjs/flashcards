@@ -4,7 +4,7 @@ rangers
 # new york
 albany
 
-## state
+# state
 capital
 
 # state2
