@@ -12,9 +12,8 @@
     </div>
     <div id="flashcards"></div>
     <script type="text/javascript">
-        var path = window.location.hostname === 'localhost' ?
-            '.' :
-            'https://raw.githubusercontent.com/reidjs/flashcards/master'
+        var isDev = window.location.hostname === 'localhost' ? true : false
+        var categoryNames = []
         function readTextFile(file, callback) {
             const rawFile = new XMLHttpRequest();
             rawFile.open("GET", file, false);
@@ -45,9 +44,10 @@
                     div.innerHTML = text
                     const ul = div.getElementsByTagName('ul')
                     console.log(ul[0])
-                    const categories = document.getElementById('categories')
-                    categories.appendChild(ul[0])
-                    const anchors = document.getElementsByTagName('a')
+                    // categoryNames = 
+                    // const categories = document.getElementById('categories')
+                    // categories.appendChild(ul[0])
+                    const anchors = ul[0].getElementsByTagName('a')
                     for(let i = 0; i < anchors.length; i++) {
                         const anchor = anchors[i]
                         anchor.setAttribute('href', `#${anchor.innerHTML}`)
@@ -57,7 +57,7 @@
             xmlhttp.open("GET", url, false);
             xmlhttp.send();
         }
-        let categorySelected;
+
         const getLocationHash = () => {
             const hash = window.location.hash
             return hash.slice(1)
@@ -73,7 +73,7 @@
             console.log('q', questions)
             console.log('a', answers)
             if (questions.length !== answers.length) {
-                console.error('Questions and answers do not match!')
+                console.error('Questions and answers length does not match!')
             }
         }
         const loadFileAndRender = () => {
@@ -81,7 +81,13 @@
         }
         document.addEventListener('DOMContentLoaded', () => {
             console.log(categories)
-            loadXMLDoc('./categories')
+            if (isDev) {
+                loadXMLDoc('./categories')
+            } else {
+                fetch('api.github.com/repos/reidjs/flashcards/contents/categories').then(res => {
+                    console.log(res)
+                })
+            }
             window.onhashchange = function(e) { 
                 loadFileAndRender()
             }
