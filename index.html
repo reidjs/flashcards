@@ -40,9 +40,10 @@
             <p class="card-text" id="flash-card-question">Select one of the categories at the top.</p>
             <p class="card-text" id="flash-card-answer"><a href="https://github.com/reidjs/flashcards">View the GitHub Readme to create your own decks.</a></p>
         </div>
-        <div class="card-footer">
-            <button id="previous-flash-card" class="btn btn-primary">previous</button>
-            <button id="next-flash-card" class="btn btn-primary">next</button>
+        <div class="card-footer d-flex justify-content-between">
+            <button id="previous-flash-card" class="w-25 btn btn-primary">previous</button>
+            <button id="flip-flash-card" class="w-25 btn btn-success">flip</button>
+            <button id="next-flash-card" class="w-25 btn btn-primary">next</button>
         </div>
     </div>
     <ul id="question-links" class="justify-content-center pagination"></ul>
@@ -120,6 +121,7 @@
             const flashCardAnswer = document.getElementById('flash-card-answer')
             const nextCardButton = document.getElementById('next-flash-card')
             const previousCardButton = document.getElementById('previous-flash-card')
+            const flipCardButton = document.getElementById('flip-flash-card')
 
 
             // var e = document.getElementById('test')
@@ -144,6 +146,7 @@
             }
 
             flashCardBody.addEventListener('click', flipCard)
+            flipCardButton.addEventListener('click', flipCard)
 
             const changeCard = dir => {
                 const newCard = currentQuestionNumber + dir

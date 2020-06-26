@@ -1,13 +1,19 @@
 # Markdown Flashcards
-Edit your flashcards in markdown then view and edit them on any device with a word editor. Uses bootstrap for styling, hosted on github pages.
+
+Create your flashcard decks in markdown then view them through any browser. Uses bootstrap for styling, hosted on github pages.
 
 ## Development
 
 ### TODO
+
 1. handle pretty rendering of markdown within the card (bold, headers, etc)
-2. Directions on how to set up iPhone shortcut
+2. readme directions on how to set up iPhone shortcut/workflow
+    - gifs/images
+3. Change question regex to require single '#' and allow subheaders '##' in answers
+4. Add active class to top nav 
 
 ### Run local
+
 From root directory run
  
 `python -m SimpleHTTPServer 8000`
@@ -15,31 +21,40 @@ From root directory run
 Open browser to localhost:8000
 
 ### Deployment
+
 Push to the github repo and the github page should update in a few seconds
 
 ## Usage 
 
 ### Adding new flash card decks
+
 Create a new file in the `categories` folder, e.g., `categories/no_spaces_allowed_in_name.md`
 
 *NOTE: MAKE SURE YOU ADD A NEWLINE AT END OF FILE OR THE LAST FLASHCARD WILL NOT RENDER (regex)*
 
 ### Adding new questions to a flash card deck
+
 Questions are denoted by a single '#' and then a whitespace character
+
 `# What is the square root of 64?`
 
-Answers are anything else
+Answers are any markdown text that follows
+
 `The answer is *8*`
 
 ### Requirements for phone editing
-- markdown editor like iAWriter (or probably dropbox?)
-- Working Copy for version control/changing flashcards from phone
+
+- Markdown editor like iAWriter
+- 'Working Copy' app for version control/changing flashcards from phone
 
 ## Future additions
+
 1. Spaced repetition, i.e., keep track of cards that have been seen
-2. "Got it right/Did not" so that it will automatically repeat cards you get wrong
-3. randomization
+2. "Got it right/Did not" buttons so that it will automatically repeat cards you get wrong
+3. Randomization
 4. CRUD cards from within the browser
+    - Tricky because this app uses the github repo as the data store for your flashcards, so you would need to modify the git repo from the web app, meaning it'd need a server + authentication layer
+5. Practice mode to go through each card in a deck in random order until you get them all correct
 
 -- 
 
