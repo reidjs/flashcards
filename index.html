@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h1>hello world10</h1>
+    <h1>hello world11</h1>
     <div id="categories">
     </div>
     <div id="flashcards"></div>
@@ -85,9 +85,11 @@
                 loadXMLDoc('./categories')
             } else {
                 fetch('api.github.com/repos/reidjs/flashcards/contents/categories').then(function(res) {
-                    return res.json()
+                    return res.text()
                 }).then(function(data) {
                     console.log(data)
+                }).catch(err => {
+                    console.log(err)
                 })
             }
             window.onhashchange = function(e) { 
