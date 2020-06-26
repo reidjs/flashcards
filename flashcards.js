@@ -1,5 +1,6 @@
 var cardStore = {}
 var currentQuestionNumber = 0
+var md = window.markdownit()
 
 const getLocationHash = () => {
     const hash = window.location.hash
@@ -12,28 +13,22 @@ const getLocationHash = () => {
 }
 const renderFlashcards = (markdown) => {
     // all lines that start with #
-    const questionRegex = /(?<=#+\s)(.*)(?=\n)/gm
+    // const questionRegex = /(?<=#+\s)(.*)(?=\n)/gm
     // all lines that are between lines that start with #\s
-    const answerRegex = /(?<=#+.*\n)((.|\n)*?)(?=(#|^$))/gm
+    // const answerRegex = /(?<=#+.*\n)((.|\n)*?)(?=(#|^$))/gm
 
-    // console.log(markdown.split('# '))
-    // split on newline
-    // if first 2 chars are #\s it is a question
-    // otherwise add onto 
     const questions = []
     const answers = []
     let answer = ''
     const lines = markdown.split('\n')
-    console.log(lines)
     for(let i = 0; i < lines.length; i++) {
         const line = lines[i]
-        console.log(line.slice(0, 2))
         if (line.slice(0, 2) == '# '){
             if (answer.length > 0) {
                 answers.push(answer)
                 answer = ''
             }
-            questions.push(line)
+            questions.push(line.slice(2))
         } else {
             answer += line
         }
@@ -41,8 +36,6 @@ const renderFlashcards = (markdown) => {
     }
     answers.push(answer)
 
-    // const questions = markdown.match(questionRegex)
-    // const answers = markdown.match(answerRegex)
     if (questions.length !== answers.length) {
         console.error('Questions and answers length does not match!')
     }
@@ -176,8 +169,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const s = getCardStack()
         if (n < 0) return
         if (n >= s.total) return
-        flashCardQuestion.innerHTML = s.questions[n]
-        flashCardAnswer.innerHTML = s.answers[n]
+        flashCardQuestion.innerHTML = md.render(s.questions[n])
+        flashCardAnswer.innerHTML = md.render(s.answers[n])
         showQuestionSide()
         currentQuestionNumber = n
         updateQuestionLinksActiveNumber(n)

@@ -8,9 +8,12 @@ salem
 ## This would be a header
 ### Is another one
 
-# state
+# # if you want to use md in the question you *can*
+```
+code test
+```
 
-capital
+`capital`
 
 # state2
 
