@@ -6,6 +6,7 @@ Create your flashcard decks in markdown then view them through any browser. Uses
 
 ### TODO
 
+0. Regex doesn't work in safari!!!
 1. handle pretty rendering of markdown within the card (bold, headers, etc)
 2. readme directions on how to set up iPhone shortcut/workflow
     - gifs/images
